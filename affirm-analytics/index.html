@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slavik Permyakov — Analytics Lead, Affirm</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #111;
+    --paper: #fdfdfc;
+    --mid: #666;
+    --faint: #e8e8e6;
+    --accent: #1a56db;
+    --green: #16803c;
+    --green-bg: #ecfdf3;
+    --amber: #b45309;
+    --amber-bg: #fffbeb;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 780px; margin: 0 auto; padding: 0 24px; }
+
+  .back-nav { padding: 20px 0 0; }
+  .back-link {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px;
+    color: var(--mid); text-decoration: none; transition: color .15s;
+  }
+  .back-link:hover { color: var(--ink); }
+
+  header { padding: 24px 0 0; }
+  header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+  header h1 em { font-style: italic; color: var(--accent); }
+  .tagline { color: var(--mid); font-size: 14px; margin-bottom: 20px; }
+  .contact-row {
+    display: flex; gap: 20px; flex-wrap: wrap;
+    font-size: 13px; font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 32px;
+  }
+  .contact-row a { color: var(--mid); text-decoration: none; transition: color .15s; }
+  .contact-row a:hover { color: var(--accent); }
+
+  .tabs {
+    display: flex; gap: 0;
+    border-bottom: 1px solid var(--faint);
+    margin-bottom: 36px;
+  }
+  .tab-btn {
+    background: none; border: none;
+    padding: 10px 20px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px; font-weight: 500;
+    color: var(--mid); cursor: pointer;
+    position: relative; transition: color .15s;
+  }
+  .tab-btn::after {
+    content: ''; position: absolute;
+    bottom: -1px; left: 0; right: 0;
+    height: 2px; background: transparent; transition: background .15s;
+  }
+  .tab-btn.active { color: var(--ink); }
+  .tab-btn.active::after { background: var(--ink); }
+  .tab-btn:hover { color: var(--ink); }
+
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  .tally {
+    font-family: 'JetBrains Mono', monospace; font-size: 13px;
+    color: var(--mid); margin-bottom: 28px;
+    display: flex; gap: 16px;
+  }
+  .tally strong { color: var(--ink); font-weight: 500; }
+
+  .col-heads { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .col-head {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--mid); padding-bottom: 12px; border-bottom: 1px solid var(--faint);
+  }
+
+  .align-item {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+    padding: 20px 0; border-bottom: 1px solid var(--faint);
+  }
+  .align-item:last-child { border-bottom: none; }
+  .align-item .they, .align-item .me { font-size: 14px; line-height: 1.65; }
+  .align-item .they { color: var(--mid); }
+  .align-item .they strong { color: var(--ink); font-weight: 500; }
+
+  .pill {
+    display: inline-block; font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: .5px;
+    padding: 2px 7px; border-radius: 3px; margin-left: 4px;
+  }
+  .pill.req { background: var(--green-bg); color: var(--green); }
+  .pill.pref { background: var(--amber-bg); color: var(--amber); }
+
+  .r-section { margin-bottom: 36px; }
+  .r-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--mid); margin-bottom: 16px;
+  }
+  .r-entry { margin-bottom: 24px; }
+  .r-entry:last-child { margin-bottom: 0; }
+  .r-date { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--mid); margin-bottom: 2px; }
+  .r-role { font-weight: 600; font-size: 15px; }
+  .r-co { font-size: 14px; color: var(--mid); margin-bottom: 6px; }
+  .r-desc { font-size: 14px; line-height: 1.65; color: #333; }
+
+  .r-skills { display: flex; flex-wrap: wrap; gap: 8px; }
+  .r-skill { font-size: 13px; padding: 5px 12px; border: 1px solid var(--faint); border-radius: 4px; }
+
+  .r-edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .r-edu .degree { font-weight: 600; font-size: 14px; }
+  .r-edu .school { font-size: 13px; color: var(--mid); }
+
+  .foot {
+    border-top: 1px solid var(--faint); margin-top: 48px; padding: 32px 0 48px;
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
+  }
+  .foot-msg { font-family: 'DM Serif Display', serif; font-size: 18px; }
+  .foot-links { display: flex; gap: 12px; }
+  .foot-link {
+    font-size: 13px; font-family: 'JetBrains Mono', monospace;
+    color: var(--mid); text-decoration: none; padding: 8px 16px;
+    border: 1px solid var(--faint); border-radius: 4px; transition: all .15s;
+  }
+  .foot-link:hover { border-color: var(--ink); color: var(--ink); }
+  .foot-link.primary { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .foot-link.primary:hover { opacity: .85; }
+
+  @media (max-width: 600px) {
+    .align-item, .col-heads, .r-edu-grid { grid-template-columns: 1fr; }
+    .col-heads .col-head:last-child { display: none; }
+    header h1 { font-size: 26px; }
+    .foot { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<nav class="back-nav">
+  <a href="/" class="back-link">← All applications</a>
+</nav>
+
+<header>
+<h1>Slavik Permyakov · <em>Analytics Lead</em></h1>
+<p class="tagline">10+ years of BI/Analytics · 6 years in People Analytics leadership · MBA · <a href="https://job-boards.greenhouse.io/affirm/jobs/7612261003" target="_blank" style="color:var(--accent);text-decoration:none;border-bottom:1px solid var(--faint)">View job posting ↗</a></p>
+<div class="contact-row">
+<a href="/cdn-cgi/l/email-protection#1360656a72677c607f72653d747f53747e727a7f3d707c7e"><span class="__cf_email__" data-cfemail="dcafaaa5bda8b3afb0bdaaf2bbb09cbbb1bdb5b0f2bfb3b1">[email&#160;protected]</span></a>
+<span style="color:var(--faint)">·</span>
+<a href="https://linkedin.com/in/sglazyrin" target="_blank">LinkedIn</a>
+<span style="color:var(--faint)">·</span>
+<a href="https://medium.com/hello-data" target="_blank">Blog</a>
+<span style="color:var(--faint)">·</span>
+<a href="https://public.tableau.com/profile/slavik.gl" target="_blank">Tableau</a>
+</div>
+</header>
+
+<div class="tabs">
+<button class="tab-btn active" data-tab="fit">Fit for Role</button>
+<button class="tab-btn" data-tab="resume">Resume</button>
+</div>
+
+<!-- ═══ Fit ═══ -->
+<div id="fit" class="tab-panel active">
+<div class="tally">
+<span><strong>7 / 7</strong> required</span>
+<span style="color:var(--faint)">·</span>
+<span><strong>2 / 2</strong> preferred</span>
+</div>
+<div class="col-heads">
+<div class="col-head">Affirm needs</div>
+<div class="col-head">What I bring</div>
+</div>
+<div class="align-item">
+<div class="they"><strong>5+ yrs SQL, Python, dbt</strong> — efficient ETL, analytics-ready data models <span class="pill req">Req</span></div>
+<div class="me">10+ years of SQL and Python. Built ETL pipelines at Hopper (GCP) and transformed Fraser Health from ad-hoc Excel/SSRS to modern self-serve analytics. Implemented Python solver driving $300K savings.</div>
+</div>
+<div class="align-item">
+<div class="they"><strong>Cloud data warehouse</strong> — Snowflake or equivalent <span class="pill req">Req</span></div>
+<div class="me">Hands-on with Google Cloud (BigQuery) and Microsoft Azure cloud data infrastructure across two organizations.</div>
+</div>
+<div class="align-item">
+<div class="they"><strong>BI platform</strong> — Sigma or similar <span class="pill req">Req</span></div>
+<div class="me">Enterprise BI rollouts on Tableau, Power BI, and Data Studio. Designed dashboards for audiences up to 3,000+ people leaders.</div>
+</div>
+<div class="align-item">
+<div class="they"><strong>ETL/ELT across HR systems</strong> — Workday, Greenhouse, internal tools <span class="pill req">Req</span></div>
+<div class="me">Integrated data from BambooHR, Lever, iCIMS, Lattice, Carta, Shareworks, and Degreed — navigating inconsistent schemas and PII governance.</div>
+</div>
+<div class="align-item">
+<div class="they"><strong>Full analytics lifecycle</strong> — requirements through deployment <span class="pill req">Req</span></div>
+<div class="me">End-to-end ownership at every role: stakeholder requirements, modeling, development, testing, documentation, deployment.</div>
+</div>
+<div class="align-item">
+<div class="they"><strong>Technical leadership</strong> — influence, mentor, set standards <span class="pill req">Req</span></div>
+<div class="me">5+ years leading People Analytics teams of engineers and analysts. Crafted multi-year vision, strategy, and roadmap at Hopper.</div>
+</div>
+<div class="align-item">
+<div class="they"><strong>Stakeholder communication</strong> — translate technical for non-technical <span class="pill req">Req</span></div>
+<div class="me">Daily collaboration with HR leadership, C-suite, and 3,000+ people managers. Published professional blog on analytics topics.</div>
+</div>
+<div class="align-item">
+<div class="they"><strong>LLMs for data transformation</strong>; custom apps <span class="pill pref">Pref</span></div>
+<div class="me">Building AI-powered document analysis pipeline (structured JSON from unstructured data) and custom voice assistant with Claude API.</div>
+</div>
+<div class="align-item">
+<div class="they"><strong>Predictive modeling</strong> <span class="pill pref">Pref</span></div>
+<div class="me">Pioneered predictive models at two organizations: demand forecasting (3% reduction in unfilled hours) and resource optimization ($300K savings).</div>
+</div>
+</div>
+
+<!-- ═══ Resume ═══ -->
+<div id="resume" class="tab-panel">
+<div class="r-section">
+<div class="r-label">Experience</div>
+<div class="r-entry">
+<div class="r-date">Jan 2022 – Present</div>
+<div class="r-role">Manager, People Analytics</div>
+<div class="r-co">Hopper · Travel Fintech · 1,000+ employees</div>
+<div class="r-desc">Led a team of engineers and analysts delivering dashboards, models, consultation, and research across the employee lifecycle. Crafted multi-year analytics vision and roadmap aligned with business priorities.</div>
+</div>
+<div class="r-entry">
+<div class="r-date">Nov 2019 – Dec 2021</div>
+<div class="r-role">Team Lead, People Analytics</div>
+<div class="r-co">Fraser Health · Healthcare · 45,000+ employees</div>
+<div class="r-desc">Led the transition from ad-hoc Excel/SSRS to modern self-serve Power BI analytics. Delivered solutions to 400+ HR team members and 3,000+ people leaders.</div>
+</div>
+<div class="r-entry">
+<div class="r-date">Sep 2018 – Nov 2019</div>
+<div class="r-role">Specialist, People Analytics</div>
+<div class="r-co">Vancouver Coastal Health · 29,000+ employees</div>
+<div class="r-desc">Developed operational dashboards on Tableau. Pioneered predictive modeling for staff regularization, driving a 3% decrease in Relief Not Found hours.</div>
+</div>
+<div class="r-entry">
+<div class="r-date">May 2015 – Aug 2018</div>
+<div class="r-role">Data Analyst</div>
+<div class="r-co">Global Container Terminals · Logistics</div>
+<div class="r-desc">Built Tableau dashboards and predictive models for capacity planning. Python solver for resource allocation driving $300K annual savings.</div>
+</div>
+<div class="r-entry">
+<div class="r-date">May 2014 – Apr 2015</div>
+<div class="r-role">Revenue Analyst</div>
+<div class="r-co">Hawkair Aviation</div>
+<div class="r-desc">Dynamic pricing strategies across 4 regional markets, improving average revenue per seat by 6% YoY.</div>
+</div>
+</div>
+<div class="r-section">
+<div class="r-label">Education</div>
+<div class="r-edu-grid">
+<div class="r-edu"><div class="degree">MBA</div><div class="school">Quantic School of Business and Technology · 2022–2023</div></div>
+<div class="r-edu"><div class="degree">B.Sc. (Honours), Statistics</div><div class="school">Simon Fraser University · 2009–2013</div></div>
+</div>
+</div>
+<div class="r-section">
+<div class="r-label">Skills</div>
+<div class="r-skills">
+<span class="r-skill">SQL</span><span class="r-skill">Python</span><span class="r-skill">R</span>
+<span class="r-skill">Tableau</span><span class="r-skill">Power BI</span><span class="r-skill">Data Studio</span>
+<span class="r-skill">Google Cloud</span><span class="r-skill">Azure</span><span class="r-skill">ETL/ELT</span>
+<span class="r-skill">Predictive Modeling</span><span class="r-skill">Git</span><span class="r-skill">LLM / AI</span>
+</div>
+</div>
+<div class="r-section">
+<div class="r-label">Community</div>
+<div class="r-entry">
+<div class="r-date">Sep 2018 – Present</div>
+<div class="r-role">Data Ambassador · DataForGood</div>
+<div class="r-desc">Organized hackathon-style events pairing organizations like Terry Fox Foundation and UNICEF Canada with volunteer data scientists.</div>
+</div>
+</div>
+</div>
+
+<div class="foot">
+<div class="foot-msg">Let's talk about People Analytics at Affirm.</div>
+<div class="foot-links">
+<a href="/cdn-cgi/l/email-protection#4132373820352e322d20376f262d01262c20282d6f222e2c" class="foot-link primary">Email me</a>
+<a href="https://linkedin.com/in/sglazyrin" class="foot-link" target="_blank">LinkedIn</a>
+</div>
+</div>
+
+</div>
+<script>
+document.querySelectorAll('.tab-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+    document.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
+    btn.classList.add('active');
+    document.getElementById(btn.getAttribute('data-tab')).classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
